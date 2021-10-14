@@ -10,6 +10,9 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
+  rules: {
+    "@typescript-eslint/no-var-requires": "off"
+  },
   root: true,
   env: {
     node: true,
