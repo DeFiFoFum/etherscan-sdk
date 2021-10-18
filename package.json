@@ -1,6 +1,6 @@
 {
-  "name": "etherscan-api-typescript-sdk",
-  "version": "1.0.0",
+  "name": "@defifofum/etherscan-sdk",
+  "version": "0.0.1",
   "description": "Typescript package used to interact with the Etherscan (and other clones) api.",
   "main": "dist/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DeFiFoFum/etherscan-api-typescript-sdk.git"
+    "url": "git+https://github.com/DeFiFoFum/etherscan-sdk.git"
   },
   "keywords": [
     "typescript",
@@ -27,9 +27,9 @@
   "author": "Apetastic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DeFiFoFum/etherscan-api-typescript-sdk/issues"
+    "url": "https://github.com/DeFiFoFum/etherscan-sdk/issues"
   },
-  "homepage": "https://github.com/DeFiFoFum/etherscan-api-typescript-sdk#readme",
+  "homepage": "https://github.com/DeFiFoFum/etherscan-sdk#readme",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
     "@types/jest": "^26.0.24",
