@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-
 interface APIDetails {
     baseUrl: string;
     apiKey: string;
@@ -21,7 +20,7 @@ const API_CONFIGS: APIs = {
     },
     bsc: {
         baseUrl: 'https://api.bscscan.com/api',
-        apiKey: process.env.BSCSCAN || '',
+        apiKey: process.env.BSCSCAN_API_KEY || '',
     },
     polygon: {
         baseUrl: 'https://api.polygonscan.com/api',
