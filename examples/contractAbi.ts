@@ -1,5 +1,4 @@
 import EtherscanService from '../src/etherscan/etherscan.service';
-import { ContractABI, parseABI } from '../src/utils/abi'
 import { getConfig } from '../src/config';
 
 const { baseUrl: BASE_URL, apiKey: API_KEY } = getConfig('bsc');
