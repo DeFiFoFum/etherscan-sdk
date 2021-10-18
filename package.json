@@ -1,5 +1,5 @@
 {
-  "name": "etherscan-sdk",
+  "name": "@defifofum/etherscan-sdk",
   "version": "0.0.2",
   "description": "Typescript package used to interact with the Etherscan (and other clones) api.",
   "main": "dist/index.js",
@@ -8,6 +8,9 @@
     "build": "tsc",
     "watch": "tsc-watch --onSuccess \"node ./dist/demo.js\"",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
