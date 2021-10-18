@@ -44,15 +44,18 @@ export interface ReceiveABIDeclaration {
     type: 'receive'
 }
 
-export interface FallbackABIDeclaration {
-    stateMutability: 'nonpayable' | 'payable' | 'pure' | 'view';
-    type: 'fallback'
+export interface ConstructorABIDeclaration {
+  stateMutability: 'payable';
+  inputs: VariableDeclaration[];
+  type: 'constructor';
 }
 
-export interface ConstructorABIDeclaration extends Omit<FallbackABIDeclaration, 'type'> {
-    inputs: VariableDeclaration[];
-    type: 'constructor'
+export interface FallbackABIDeclaration extends Omit<ConstructorABIDeclaration, 'stateMutability' |'type'> {
+    stateMutability: 'nonpayable' | 'payable' | 'pure' | 'view';
+    type: 'fallback';
 }
+
+
 
 export interface FunctionABIDeclaration extends Omit<ConstructorABIDeclaration, 'type'> {
     name: string;
@@ -69,20 +72,21 @@ export interface EventABIDeclaration {
 
 export type ContractABI = Array<ConstructorABIDeclaration | FallbackABIDeclaration | ReceiveABIDeclaration | FunctionABIDeclaration | EventABIDeclaration>;
 
-interface ParsedABI {
+export interface ParsedABI {
     abi: ContractABI;
     constructor: ConstructorABIDeclaration | undefined;
     fallback: FallbackABIDeclaration | undefined;
     receive: ReceiveABIDeclaration | undefined;
     functions: FunctionABIDeclaration[];
     events: EventABIDeclaration[];
+    canReceive: boolean;
 }
 
 /**
  * Loop through the ABI and separate out the functions and events
  * 
  * @param abi 
- * @returns 
+ * @returns ParsedABI
  */
 export function parseABI(abi: ContractABI | string): ParsedABI {
     let parsedABI = abi as ContractABI;
@@ -95,17 +99,25 @@ export function parseABI(abi: ContractABI | string): ParsedABI {
     let constructor;
     let fallback;
     let receive;
+    let canReceive = false;
     for (const entity of parsedABI) {
       if(entity.type == 'function') {
         functions.push(entity);
+        if(entity.stateMutability === 'payable') {
+          canReceive = true;
+        }
       } else if(entity.type == 'event') {
         events.push(entity);
       } else if(entity.type == 'constructor') {
         constructor = entity;
       } else if(entity.type == 'fallback') {
         fallback = entity;
+        if(entity.stateMutability === 'payable') {
+          canReceive = true;
+        }
       } else if(entity.type == 'receive') {
         receive = entity;
+        canReceive = true;
       }
     }
     return {
@@ -115,5 +127,6 @@ export function parseABI(abi: ContractABI | string): ParsedABI {
         receive,
         functions,
         events,
+        canReceive,
     }
 }

@@ -1,12 +1,9 @@
 import axios from 'axios';
-import { ContractABI, parseABI } from '../utils/abi'
-import { BigNumber, utils, BytesLike } from 'ethers';
-
-const abiCoder = utils.defaultAbiCoder;
-const keccak256 = utils.keccak256;
+import { parseABI, ParsedABI } from '../utils/abi'
+import { utils } from 'ethers';
 const { formatUnits } = utils;
 
-interface ContractSouceCode {
+interface ContractSourceCode {
     SourceCode: string;
     ABI: string;
     ContractName: string;
@@ -20,6 +17,7 @@ interface ContractSouceCode {
     Proxy: string;
     Implementation: string;
     SwarmSource: string;
+    parsedAbi: ParsedABI;
 }
 
 interface AccountBalance {
@@ -72,7 +70,7 @@ interface AccountTokenTransfer {
 interface AccountTXConfig {
     startBlock?: number | string;
     endBlock?: number | string;
-    // FIXME: txlistinternal has a different return shape
+    // TODO: txlistinternal has a different return shape
     action?: 'txlist' | 'txlistinternal';
     sort?: 'asc' | 'dsc';
     page?: number;
@@ -119,7 +117,7 @@ export default class EtherscanService {
      */
     async getContractABI(
         address: string,
-    ): Promise<ContractABI> {
+    ): Promise<ParsedABI> {
         try {
             const response = await axios.get(`${this.baseUrl}`, {
                 params: {
@@ -130,8 +128,8 @@ export default class EtherscanService {
                 },
             });
 
-            const parsedAbi = JSON.parse(response.data.result);
-            return parsedAbi;
+            const abiObject = JSON.parse(response.data.result);
+            return parseABI(abiObject);
         } catch (error) {
             console.error(error);
             throw new Error(error as any);
@@ -147,7 +145,7 @@ export default class EtherscanService {
      */
     async getContractSourceCode(
         address: string,
-    ): Promise<ContractSouceCode> {
+    ): Promise<ContractSourceCode> {
         try {
             const response = await axios.get(`${this.baseUrl}`, {
                 params: {
@@ -157,8 +155,9 @@ export default class EtherscanService {
                     apikey: this.apiKey,
                 },
             });
-
-            return response.data.result[0] as ContractSouceCode;
+            // TODO: Can pull multiple source codes
+            const contractSourceCode = response.data.result[0] as ContractSourceCode;
+            return {...contractSourceCode, parsedAbi: parseABI(contractSourceCode.ABI)};
         } catch (error) {
             console.error(error);
             throw new Error(error as any);
@@ -198,7 +197,7 @@ export default class EtherscanService {
 
     /**
      * Pass config.action: 'txlist' or 'txlistinternal' for standard/internal txs
-     * respectivelly.
+     * respectively.
      *
      * @param address
      * @returns Array of tx objects
@@ -238,7 +237,7 @@ export default class EtherscanService {
 
     /**
      * Pass config.action: 'txlist' or 'txlistinternal' for standard/internal txs
-     * respectivelly.
+     * respectively.
      *
      * @param address
      * @returns Array of tx objects
