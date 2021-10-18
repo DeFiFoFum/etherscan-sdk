@@ -1,5 +1,5 @@
 {
-  "name": "@defifofum/etherscan-sdk",
+  "name": "etherscan-sdk",
   "version": "0.0.1",
   "description": "Typescript package used to interact with the Etherscan (and other clones) api.",
   "main": "dist/index.js",
