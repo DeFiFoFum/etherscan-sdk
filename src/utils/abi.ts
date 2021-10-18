@@ -73,12 +73,16 @@ export interface EventABIDeclaration {
 export type ContractABI = Array<ConstructorABIDeclaration | FallbackABIDeclaration | ReceiveABIDeclaration | FunctionABIDeclaration | EventABIDeclaration>;
 
 export interface ParsedABI {
-    abi: ContractABI;
+    ABI: ContractABI;
     constructor: ConstructorABIDeclaration | undefined;
     fallback: FallbackABIDeclaration | undefined;
     receive: ReceiveABIDeclaration | undefined;
+    functionList: string[];
     functions: FunctionABIDeclaration[];
+    getFunctionByName: (name: string) => FunctionABIDeclaration;
+    eventList: string[];
     events: EventABIDeclaration[];
+    getEventByName: (name: string) => EventABIDeclaration;
     canReceive: boolean;
 }
 
@@ -120,13 +124,21 @@ export function parseABI(abi: ContractABI | string): ParsedABI {
         canReceive = true;
       }
     }
+
+    const functionList = functions.map(functionObject => functionObject.name);
+    const eventList = events.map(eventObject => eventObject.name);
+
     return {
-        abi: parsedABI,
+        ABI: parsedABI,
         constructor,
         fallback,
         receive,
+        functionList,
         functions,
+        getFunctionByName: (name: string) => functions.find(functionObject => functionObject.name === name),
+        eventList,
         events,
+        getEventByName: (name: string) => events.find(eventObject => eventObject.name === name),
         canReceive,
     }
 }

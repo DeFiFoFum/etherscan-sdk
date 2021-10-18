@@ -2,7 +2,7 @@
   "name": "etherscan-api-typescript-sdk",
   "version": "1.0.0",
   "description": "Typescript package used to interact with the Etherscan (and other clones) api.",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "test": "yarn test",
     "build": "tsc",

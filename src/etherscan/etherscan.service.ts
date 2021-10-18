@@ -3,7 +3,7 @@ import { parseABI, ParsedABI } from '../utils/abi'
 import { utils } from 'ethers';
 const { formatUnits } = utils;
 
-interface ContractSourceCode {
+interface FullContractDetails {
     SourceCode: string;
     ABI: string;
     ContractName: string;
@@ -138,14 +138,15 @@ export default class EtherscanService {
 
     /**
      *
-     * Get verified contract source code
+     * Get full contract details based on a contract address. View the contract name, source code, abi and other 
+     *  useful details. Provides a parsedAbi in the return value which separates out abi entities for different uses.
      * 
      * @param address contract address
      * @returns Source code object
      */
-    async getContractSourceCode(
+    async getFullContractDetails(
         address: string,
-    ): Promise<ContractSourceCode> {
+    ): Promise<FullContractDetails> {
         try {
             const response = await axios.get(`${this.baseUrl}`, {
                 params: {
@@ -156,7 +157,7 @@ export default class EtherscanService {
                 },
             });
             // TODO: Can pull multiple source codes
-            const contractSourceCode = response.data.result[0] as ContractSourceCode;
+            const contractSourceCode = response.data.result[0] as FullContractDetails;
             return {...contractSourceCode, parsedAbi: parseABI(contractSourceCode.ABI)};
         } catch (error) {
             console.error(error);
