@@ -31,6 +31,17 @@ This package is pre-configured with API endpoints for:
 To pass in API KEY details, make a copy of `.env.example` and name it to `.env`. Add in API keys as needed.
 
 ## Usage
+```js
+EtherscanService {
+    getContractABI: (...args) => Promise<ParsedABI>;
+    getFullContractDetails: (...args) => Promise<FullContractDetails>; 
+    getBalance: (...args) => Promise<AccountBalance[]>;
+    getAccountTxs: (...args) => Promise<AccountTX[]>;
+    getAccountTokenTransfers: (...args) => Promise<AccountTokenTransfer[]>;
+}
+```
+
+
 Here is an example of pulling a contract ABI from BscScan based on a contract address. This ABI can then be used to create an `ethers` contract to interact with it through web3. 
 
 ```js

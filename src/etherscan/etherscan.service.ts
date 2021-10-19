@@ -158,7 +158,7 @@ export default class EtherscanService {
             });
             // TODO: Can pull multiple source codes
             const contractSourceCode = response.data.result[0] as FullContractDetails;
-            return {...contractSourceCode, parsedAbi: parseABI(contractSourceCode.ABI)};
+            return { ...contractSourceCode, parsedAbi: parseABI(contractSourceCode.ABI) };
         } catch (error) {
             console.error(error);
             throw new Error(error as any);
