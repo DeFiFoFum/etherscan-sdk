@@ -9,9 +9,6 @@
     "watch": "tsc-watch --onSuccess \"node ./dist/demo.js\"",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint . --fix",
