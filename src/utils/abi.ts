@@ -92,7 +92,7 @@ export interface ParsedABI {
  * @param abi 
  * @returns ParsedABI
  */
-export function parseABI(abi: ContractABI | string): ParsedABI {
+export function parseABI(abi: ContractABI | string): ParsedABI  {
     let parsedABI = abi as ContractABI;
     if(typeof abi == 'string') {
         parsedABI = JSON.parse(abi) as ContractABI;
