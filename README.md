@@ -12,19 +12,11 @@ This package is pre-configured with API endpoints for:
 
 
 ## Installation
-1. Create a `.npmrc` file at the root of your directory and add the following lines: 
-
 ```
-@defifofum:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
+npm i @defifofum/etherscan-sdk
+
+yarn add @defifofum/etherscan-sdk
 ```
-
-2. Create a GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)  
-
-3. Export the personal access token as `NPM_TOKEN`  
-   `export NPM_TOKEN=<your-token>`
-
-4. `yarn add @defifofum/etherscan-sdk` 
 
 
 ## Configuration
