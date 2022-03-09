@@ -25,7 +25,7 @@
     "solidity"
   ],
   "author": "Apetastic",
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "bugs": {
     "url": "https://github.com/DeFiFoFum/etherscan-sdk/issues"
   },
