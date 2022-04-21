@@ -1,3 +1,10 @@
+<img src="https://user-images.githubusercontent.com/78645267/164546991-c1ef7cf7-525e-4a48-9010-6ae8e0fb0fb4.png" width="100" height="100">  
+
+_This repo has been deprecated in place of [defifofum-web3-monorepo](https://github.com/DeFiFoFum/defifofum-web3-monorepo/tree/main/packages/etherscan-sdk) where multiple packages are maintained._
+
+
+<br>
+
 # Etherscan SDK
 
 Typescript enabled SDK for pulling data from Etherscan like services.   
